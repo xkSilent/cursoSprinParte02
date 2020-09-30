@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.app01.domain.Categoria;
 import com.app01.domain.Cidade;
+import com.app01.domain.Cliente;
+import com.app01.domain.Endereco;
 import com.app01.domain.Estado;
 import com.app01.domain.Produto;
+import com.app01.domain.enums.TipoCliente;
 import com.app01.repositories.CategoriaRepository;
 import com.app01.repositories.CidadeRepository;
+import com.app01.repositories.ClienteRepository;
+import com.app01.repositories.EnderecoRepository;
 import com.app01.repositories.EstadoRepository;
 import com.app01.repositories.ProdutoRepository;
 
@@ -27,6 +32,11 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringMvcApplication.class, args);
@@ -77,8 +87,40 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 		c3.setNome("Campinas");
 		c3.setEstado(est2);
 		
+		//associando as cidades aos estados
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		
+		// instanciando um cliente
+		Cliente cli1 = new Cliente();
+		cli1.setNome("Maria Silva");
+		cli1.setEmail("maria@gmail.com");
+		cli1.setCpfOuCnpj("123456789-00");
+		cli1.setTipo(TipoCliente.PESSOAFISICA);
+		//associando os telefone ao cliente
+		cli1.getTelefones().addAll(Arrays.asList("12 12345678", "12 98876543"));
+		
+		//instanciando os enderecos
+		Endereco e1 = new Endereco();
+		e1.setLogadouro("Rua Flores");
+		e1.setNumero("300");
+		e1.setComplemento("Apto 303");
+		e1.setBairro("Jardim");
+		e1.setCep("12345678");
+		e1.setCliente(cli1);
+		e1.setCidade(c1);
+		
+		Endereco e2 = new Endereco();
+		e2.setLogadouro("Avenida Matos");
+		e2.setNumero("105");
+		e2.setComplemento("sal 303");
+		e2.setBairro("Centro");
+		e2.setCep("87654321");
+		e2.setCliente(cli1);
+		e2.setCidade(c2);
+		
+		//Associando os enderecos ao cliente
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
 		//salvando as categorias no Banco de dados
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
@@ -88,6 +130,10 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		//salvando as cidades no banco de dados
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		//Salvando Clientes e Endereços n obanco de dados
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
 	}
 
