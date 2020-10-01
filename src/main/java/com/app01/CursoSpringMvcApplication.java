@@ -1,5 +1,6 @@
 package com.app01;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,19 @@ import com.app01.domain.Cidade;
 import com.app01.domain.Cliente;
 import com.app01.domain.Endereco;
 import com.app01.domain.Estado;
+import com.app01.domain.PagamentoComBoleto;
+import com.app01.domain.PagamentoComCartao;
+import com.app01.domain.Pedido;
 import com.app01.domain.Produto;
+import com.app01.domain.enums.EstadoPagamento;
 import com.app01.domain.enums.TipoCliente;
 import com.app01.repositories.CategoriaRepository;
 import com.app01.repositories.CidadeRepository;
 import com.app01.repositories.ClienteRepository;
 import com.app01.repositories.EnderecoRepository;
 import com.app01.repositories.EstadoRepository;
+import com.app01.repositories.PagamentoRepository;
+import com.app01.repositories.PedidoRepository;
 import com.app01.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -37,6 +44,11 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringMvcApplication.class, args);
@@ -135,9 +147,41 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
-	}
-
-	
-
+		//Criando formatação de data
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		// instanciando os pedidos 1 e 2;
+		Pedido ped1 = new Pedido();
+		ped1.setInstante(sdf.parse("30/09/2017 10:32"));
+		ped1.setCliente(cli1);
+		ped1.setEnderecoDeEntrega(e1);
+		Pedido ped2 = new Pedido();
+		ped2.setInstante(sdf.parse("10/12/2017 10:32"));
+		ped2.setCliente(cli1);
+		ped2.setEnderecoDeEntrega(e2);
+		
+		//Instanciando os pagamentos
+		PagamentoComCartao pagto1 = new PagamentoComCartao();
+		pagto1.setEstadoPagamento(EstadoPagamento.QUITADO);
+		pagto1.setPedido(ped1);
+		pagto1.setNumeroDeParcelas(6);
+		
+		ped1.setPagamento(pagto1);
+		
+		PagamentoComBoleto pagto2 = new PagamentoComBoleto();
+		pagto2.setEstadoPagamento(EstadoPagamento.PENDENTE);
+		pagto2.setPedido(ped2);
+		pagto2.setDataVencimento(sdf.parse("20/10/20017 00:00"));
+		pagto2.setDataPagamento(null);
+		
+		ped2.setPagamento(pagto2);
+		
+		//Associando o pedido ao cliente
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		// salvando os pedidos e pagamentos no Banco de Dados
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
+	}	
 
 }
