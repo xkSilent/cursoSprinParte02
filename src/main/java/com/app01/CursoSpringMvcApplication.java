@@ -66,6 +66,20 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 	    cat1.setNome("Informatica");
 		Categoria cat2 = new Categoria();
 		cat2.setNome("Escritório");
+		Categoria cat3 = new Categoria();
+		cat3.setNome("Cama mesa e Banho");
+		Categoria cat4 = new Categoria();
+		cat4.setNome("Acessórios");
+		Categoria cat5 = new Categoria();
+		cat5.setNome("Computadores");
+		Categoria cat6 = new Categoria();
+		cat6.setNome("Diversos");
+		Categoria cat7 = new Categoria();
+		cat7.setNome("Telefonia");
+		Categoria cat8 = new Categoria();
+		cat8.setNome("Brinquedo");
+		Categoria cat9 = new Categoria();
+		cat9.setNome("Ferramenta");
 		
 		//instanciando produtos
 		Produto p1 = new Produto();
@@ -140,7 +154,7 @@ public class CursoSpringMvcApplication implements CommandLineRunner {
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
 		//salvando as categorias no Banco de dados
-		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6,cat7,cat8,cat9));
 		//salvando os produtos no banco de dados
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		//salvando os estado no banco de dados
