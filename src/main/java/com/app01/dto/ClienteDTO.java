@@ -2,6 +2,7 @@ package com.app01.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -20,6 +21,7 @@ public class ClienteDTO implements Serializable {
 	
 	@NotEmpty(message = "Preenchimento Obrigatório")
 	@Email(message = "E-mail inválido")
+	@Column(unique=true)
 	private String email;
 	
 	public ClienteDTO(){
