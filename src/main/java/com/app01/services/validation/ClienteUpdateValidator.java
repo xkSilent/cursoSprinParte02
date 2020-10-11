@@ -25,7 +25,7 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
 
 		List<FieldMessage> list = new ArrayList<>();
-
+        // verificando email
 		Cliente aux = repo.findByEmail(objDto.getEmail());
 		if(aux != null && aux.getEmail() != objDto.getEmail()) {
 			list.add(new FieldMessage("email", "email já existente"));
