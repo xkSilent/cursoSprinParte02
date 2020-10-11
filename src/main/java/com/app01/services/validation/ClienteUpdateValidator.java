@@ -2,18 +2,14 @@ package com.app01.services.validation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerMapping;
 
 import com.app01.domain.Cliente;
 import com.app01.dto.ClienteDTO;
-import com.app01.dto.ClienteNewDTO;
 import com.app01.repositories.ClienteRepository;
 import com.app01.resources.exception.FieldMessage;
 
