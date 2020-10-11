@@ -24,12 +24,16 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 	@Autowired
 	private ClienteRepository repo;
 	
+<<<<<<< HEAD
 	@Autowired
 	private HttpServletRequest request;
+=======
+>>>>>>> 67cd766... Validação customizada: email não repetido na atualização de cliente
 
 	@Override
 	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
 		
+<<<<<<< HEAD
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		
 		Integer uriId = Integer.parseInt(map.get("id"));
@@ -38,6 +42,12 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 		
 		Cliente aux = repo.findByEmail(objDto.getEmail());
 		if(aux != null && !Integer.valueOf(aux.getId()).equals(uriId)) {
+=======
+		List<FieldMessage> list = new ArrayList<>();
+		
+		Cliente aux = repo.findByEmail(objDto.getEmail());
+		if(aux != null && aux.getEmail() != objDto.getEmail()) {
+>>>>>>> 67cd766... Validação customizada: email não repetido na atualização de cliente
 			list.add(new FieldMessage("email", "email já existente"));
 		}
 		
