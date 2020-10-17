@@ -204,7 +204,7 @@ public class DBService {
 				PagamentoComBoleto pagto2 = new PagamentoComBoleto();
 				pagto2.setEstadoPagamento(EstadoPagamento.PENDENTE);
 				pagto2.setPedido(ped2);
-				pagto2.setDataVencimento(sdf.parse("20/10/20017 00:00"));
+				pagto2.setDataVencimento(sdf.parse("20/10/2017 00:00"));
 				pagto2.setDataPagamento(null);
 				
 				ped2.setPagamento(pagto2);
