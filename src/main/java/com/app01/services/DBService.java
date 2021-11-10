@@ -139,7 +139,7 @@ public class DBService {
 				// instanciando um cliente
 				Cliente cli1 = new Cliente();
 				cli1.setNome("Maria Silva");
-				cli1.setEmail("maria@gmail.com");
+				cli1.setEmail("fsdfelipe_dias@live.com");
 				cli1.setCpfOuCnpj("123456789-00");
 				cli1.setTipo(TipoCliente.PESSOAFISICA);
 				//associando os telefone ao cliente
