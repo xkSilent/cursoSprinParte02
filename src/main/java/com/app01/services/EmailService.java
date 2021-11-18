@@ -10,5 +10,4 @@ public interface EmailService {
 	
 	void sendEmail(SimpleMailMessage msg);
 
-
 }

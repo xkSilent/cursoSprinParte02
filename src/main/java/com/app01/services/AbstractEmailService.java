@@ -2,6 +2,7 @@ package com.app01.services;
 
 import java.util.Date;
 
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -11,6 +12,7 @@ public abstract class AbstractEmailService implements EmailService {
 	
 	@Value("${default.sender}")
 	private String sender;
+	
 	
 	@Override
 	public void sendOrderConfirmationEmail(Pedido obj) {
@@ -27,5 +29,6 @@ public abstract class AbstractEmailService implements EmailService {
 		sm.setText(obj.toString());
 		return sm;
 	}
+	
 
 }
