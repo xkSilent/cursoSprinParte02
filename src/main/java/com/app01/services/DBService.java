@@ -19,6 +19,7 @@ import com.app01.domain.PagamentoComCartao;
 import com.app01.domain.Pedido;
 import com.app01.domain.Produto;
 import com.app01.domain.enums.EstadoPagamento;
+import com.app01.domain.enums.Perfil;
 import com.app01.domain.enums.TipoCliente;
 import com.app01.repositories.CategoriaRepository;
 import com.app01.repositories.CidadeRepository;
@@ -147,8 +148,17 @@ public class DBService {
 				cli1.setCpfOuCnpj("123456789-00");
 				cli1.setTipo(TipoCliente.PESSOAFISICA);
 				cli1.setSenha(pe.encode("12345qwert"));
+				// instanciando um cliente
+				Cliente cli2 = new Cliente();
+				cli2.setNome("Jose Souza");
+				cli2.setEmail("felipe_dias@live.com");
+				cli2.setCpfOuCnpj("987654321-00");
+				cli2.setTipo(TipoCliente.PESSOAFISICA);
+				cli2.setSenha(pe.encode("12345"));
+				cli2.addPerfil(Perfil.ADMIN);
 				//associando os telefone ao cliente
 				cli1.getTelefones().addAll(Arrays.asList("12 12345678", "12 98876543"));
+				cli2.getTelefones().addAll(Arrays.asList("13 87654321", "13 88997766"));
 				
 				//instanciando os enderecos
 				Endereco e1 = new Endereco();
@@ -166,11 +176,12 @@ public class DBService {
 				e2.setComplemento("sal 303");
 				e2.setBairro("Centro");
 				e2.setCep("87654321");
-				e2.setCliente(cli1);
+				e2.setCliente(cli2);
 				e2.setCidade(c2);
 				
 				//Associando os enderecos ao cliente
-				cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+				cli1.getEnderecos().addAll(Arrays.asList(e1));
+				cli2.getEnderecos().addAll(Arrays.asList(e2));
 				
 				//salvando as categorias no Banco de dados
 				categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6,cat7));
@@ -182,7 +193,7 @@ public class DBService {
 				cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 				
 				//Salvando Clientes e Endereços n obanco de dados
-				clienteRepository.saveAll(Arrays.asList(cli1));
+				clienteRepository.saveAll(Arrays.asList(cli1,cli2));
 				enderecoRepository.saveAll(Arrays.asList(e1, e2));
 				
 				//Criando formatação de data
