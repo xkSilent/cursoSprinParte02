@@ -36,7 +36,7 @@ public class Cliente implements Serializable {
 	private String senha;
 	
 	@ElementCollection
-	@CollectionTable(name="")
+	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 	
 	@OneToMany(mappedBy="cliente",cascade = CascadeType.ALL)
