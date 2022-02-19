@@ -11,6 +11,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,9 +38,10 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
-	@ElementCollection
+	@ElementCollection(targetClass = Perfil.class,fetch = FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
-	private Set<Integer> perfis = new HashSet<>();
+	@Enumerated(EnumType.ORDINAL)
+	private Set<Perfil> perfis = new HashSet<>();
 	
 	@OneToMany(mappedBy="cliente",cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -114,12 +118,12 @@ public class Cliente implements Serializable {
 	}
 	
 	public Set<Perfil> getPerfis(){
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
-	}
-	
-	public void addPerfil(Perfil perfil) {
-		perfis.add(perfil.getCod());
-	}
+		return perfis.stream().collect(Collectors.toSet());
+		}
+		public void addPerfil(Perfil perfil) {
+		perfis.add(perfil);
+		}
+
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;
