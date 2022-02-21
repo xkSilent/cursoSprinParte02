@@ -120,7 +120,7 @@ public class Cliente implements Serializable {
 	public Set<Perfil> getPerfis(){
 		return perfis.stream().collect(Collectors.toSet());
 		}
-		public void addPerfil(Perfil perfil) {
+	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil);
 		}
 
