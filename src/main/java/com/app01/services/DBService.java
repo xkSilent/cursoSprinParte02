@@ -156,7 +156,7 @@ public class DBService {
 				cli2.setCpfOuCnpj("987654321-00");
 				cli2.setTipo(TipoCliente.PESSOAFISICA);
 				cli2.setSenha(pe.encode("12345"));
-				cli2.addPerfil(Perfil.ADMIN);
+				cli2.addPerfil(Perfil.CLIENTE);
 				//associando os telefone ao cliente
 				cli1.getTelefones().addAll(Arrays.asList("12 12345678", "12 98876543"));
 				cli2.getTelefones().addAll(Arrays.asList("13 87654321", "13 88997766"));
