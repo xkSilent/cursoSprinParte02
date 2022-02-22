@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app01.domain.Cidade;
 import com.app01.domain.Cliente;
 import com.app01.domain.Endereco;
+import com.app01.domain.enums.Perfil;
 import com.app01.domain.enums.TipoCliente;
 import com.app01.dto.ClienteDTO;
 import com.app01.dto.ClienteNewDTO;
 import com.app01.repositories.ClienteRepository;
 import com.app01.repositories.EnderecoRepository;
+import com.app01.security.UserSS;
+import com.app01.services.exceptions.AuthorizationException;
 import com.app01.services.exceptions.DataIntegrityException;
 import com.app01.services.exceptions.ObjectNotFoundException;
 
@@ -35,6 +38,12 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negago");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado ! id:" +id+
 				"Tipo: " + Cliente.class.getName()));
