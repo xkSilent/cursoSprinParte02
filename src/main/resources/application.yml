@@ -1,16 +1,10 @@
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.username=sa
-spring.datasource.password=
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-
 cloud:
   aws:
     credentials:
       access-key: 
       secret-key: 
     region:
-      static: sa-east-1
+      static: us-east-2
     stack:
       auto: false
 
@@ -26,3 +20,7 @@ spring:
       file-size-threshold: 2MB
       max-file-size: 5MB
       max-request-size: 10MB
+
+server:
+  port: 9090
+

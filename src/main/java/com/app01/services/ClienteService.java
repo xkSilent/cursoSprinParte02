@@ -1,5 +1,6 @@
 package com.app01.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app01.domain.Cidade;
 import com.app01.domain.Cliente;
@@ -28,6 +30,10 @@ import com.app01.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
+	
+	@Autowired
+	private S3Service s3Service;
+	
 	@Autowired
 	private ClienteRepository repo;
 	
@@ -124,4 +130,11 @@ public class ClienteService {
 		}
 		return cli;
 	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
+	}
+/**	public String uploadFile(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
+	} */
 }
