@@ -35,6 +35,16 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private int tipo;
 	
+	private String imageUrl;
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	@JsonIgnore
 	private String senha;
 	
