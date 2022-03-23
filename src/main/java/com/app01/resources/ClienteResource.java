@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,5 +94,11 @@ public class ClienteResource {
     public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
         return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
     } */
+	
+	@GetMapping("/email")
+	public ResponseEntity<Cliente> findbyEmail(@RequestParam(value="value") String email){
+		Cliente obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
 	
 }
